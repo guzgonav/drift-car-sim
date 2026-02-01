@@ -379,55 +379,52 @@
       </axis>
     </joint>
 
-    <!-- ==================== CONTROLLERS ==================== -->
-    
-    <!-- Rear wheel velocity controllers -->
+    <!-- ==================== ACKERMANN STEERING PLUGIN ==================== -->
+    <!-- 
+      Subscribes to: /model/drift_car/cmd_vel (gz.msgs.Twist)
+      Publishes to:  /model/drift_car/odometry (gz.msgs.Odometry)
+      
+      Vehicle parameters:
+        wheel_base:       0.26 m (front to rear axle)
+        wheel_separation: 0.18 m (left to right wheel center)
+        kingpin_width:    0.16 m (steering pivot to pivot)
+        wheel_radius:     0.033 m
+    -->
     <plugin
-      filename="gz-sim-joint-controller-system"
-      name="gz::sim::systems::JointController">
-      <joint_name>rear_left_wheel_joint</joint_name>
-      <use_velocity_commands>true</use_velocity_commands>
-      <p_gain>0.5</p_gain>
-      <i_gain>0.1</i_gain>
+      filename="gz-sim-ackermann-steering-system"
+      name="gz::sim::systems::AckermannSteering">
+      
+      <!-- Drive wheels (rear) -->
+      <left_joint>rear_left_wheel_joint</left_joint>
+      <right_joint>rear_right_wheel_joint</right_joint>
+      
+      <!-- Steering joints (front) -->
+      <left_steering_joint>front_left_steering_joint</left_steering_joint>
+      <right_steering_joint>front_right_steering_joint</right_steering_joint>
+      
+      <!-- Geometry -->
+      <wheel_base>0.26</wheel_base>
+      <wheel_separation>0.18</wheel_separation>
+      <kingpin_width>0.16</kingpin_width>
+      <wheel_radius>0.033</wheel_radius>
+      <steering_limit>0.6</steering_limit>
+      
+      <!-- Velocity limits -->
+      <min_velocity>-1.0</min_velocity>
+      <max_velocity>1.0</max_velocity>
+      <min_acceleration>-2.0</min_acceleration>
+      <max_acceleration>2.0</max_acceleration>
+      
+      <!-- Odometry -->
+      <odom_publish_frequency>50</odom_publish_frequency>
+      <odom_topic>odometry</odom_topic>
+      <tf_topic>tf</tf_topic>
+      <frame_id>odom</frame_id>
+      <child_frame_id>base_link</child_frame_id>
+      
     </plugin>
     
-    <plugin
-      filename="gz-sim-joint-controller-system"
-      name="gz::sim::systems::JointController">
-      <joint_name>rear_right_wheel_joint</joint_name>
-      <use_velocity_commands>true</use_velocity_commands>
-      <p_gain>0.5</p_gain>
-      <i_gain>0.1</i_gain>
-    </plugin>
-    
-    <!-- Steering position controllers -->
-    <plugin
-      filename="gz-sim-joint-position-controller-system"
-      name="gz::sim::systems::JointPositionController">
-      <joint_name>front_left_steering_joint</joint_name>
-      <p_gain>500</p_gain>
-      <i_gain>50</i_gain>
-      <d_gain>10</d_gain>
-      <i_max>5</i_max>
-      <i_min>-5</i_min>
-      <cmd_max>50</cmd_max>
-      <cmd_min>-50</cmd_min>
-    </plugin>
-    
-    <plugin
-      filename="gz-sim-joint-position-controller-system"
-      name="gz::sim::systems::JointPositionController">
-      <joint_name>front_right_steering_joint</joint_name>
-      <p_gain>500</p_gain>
-      <i_gain>50</i_gain>
-      <d_gain>10</d_gain>
-      <i_max>5</i_max>
-      <i_min>-5</i_min>
-      <cmd_max>50</cmd_max>
-      <cmd_min>-50</cmd_min>
-    </plugin>
-    
-    <!-- Publish joint states -->
+    <!-- Publish joint states for monitoring -->
     <plugin
       filename="gz-sim-joint-state-publisher-system"
       name="gz::sim::systems::JointStatePublisher">
