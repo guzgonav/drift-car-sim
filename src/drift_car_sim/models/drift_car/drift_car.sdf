@@ -79,10 +79,10 @@
         <surface>
           <friction>
             <ode>
-              <mu>0.5</mu>
-              <mu2>0.5</mu2>
-              <slip1>0.05</slip1>
-              <slip2>0.05</slip2>
+              <mu>0.3</mu>
+              <mu2>0.15</mu2>
+              <slip1>0.1</slip1>
+              <slip2>0.3</slip2>
             </ode>
           </friction>
         </surface>
@@ -146,10 +146,10 @@
         <surface>
           <friction>
             <ode>
-              <mu>0.5</mu>
-              <mu2>0.5</mu2>
-              <slip1>0.05</slip1>
-              <slip2>0.05</slip2>
+              <mu>0.3</mu>
+              <mu2>0.15</mu2>
+              <slip1>0.1</slip1>
+              <slip2>0.3</slip2>
             </ode>
           </friction>
         </surface>
@@ -410,8 +410,8 @@
       <steering_limit>0.6</steering_limit>
       
       <!-- Velocity limits -->
-      <min_velocity>-1.0</min_velocity>
-      <max_velocity>1.0</max_velocity>
+      <min_velocity>-3.0</min_velocity>
+      <max_velocity>3.0</max_velocity>
       <min_acceleration>-2.0</min_acceleration>
       <max_acceleration>2.0</max_acceleration>
       
