@@ -1,1 +1,6 @@
 .vscode/
+build/
+log/
+install/
+project_status.md
+
