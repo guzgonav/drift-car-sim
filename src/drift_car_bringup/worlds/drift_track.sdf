@@ -1,40 +1,84 @@
 <?xml version="1.0" ?>
 <sdf version="1.8">
   <world name="drift_track">
-    
+
     <physics name="1ms" type="ignored">
       <max_step_size>0.001</max_step_size>
       <real_time_factor>1.0</real_time_factor>
     </physics>
-    
-    <plugin filename="gz-sim-physics-system" 
+
+    <plugin filename="gz-sim-physics-system"
             name="gz::sim::systems::Physics">
     </plugin>
-    <plugin filename="gz-sim-scene-broadcaster-system" 
+    <plugin filename="gz-sim-scene-broadcaster-system"
             name="gz::sim::systems::SceneBroadcaster">
     </plugin>
     <plugin filename="gz-sim-user-commands-system"
             name="gz::sim::systems::UserCommands">
     </plugin>
 
+    <!-- Lighting -->
     <light type="directional" name="sun">
       <cast_shadows>true</cast_shadows>
-      <pose>0 0 10 0 0 0</pose>
-      <diffuse>0.8 0.8 0.8 1</diffuse>
-      <specular>0.2 0.2 0.2 1</specular>
-      <direction>-0.5 0.1 -0.9</direction>
+      <pose>0 0 15 0 0 0</pose>
+      <diffuse>1.0 1.0 0.95 1</diffuse>
+      <specular>0.3 0.3 0.3 1</specular>
+      <direction>-0.3 0.1 -0.9</direction>
     </light>
 
-    <!-- Ground plane -->
-    <model name="ground_plane">
+    <light type="directional" name="ambient_light">
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.4 0.4 0.45 1</diffuse>
+      <specular>0 0 0 1</specular>
+      <direction>0 0 -1</direction>
+    </light>
+
+    <!-- ==================== GRASS (30x30m) ==================== -->
+    <model name="grass">
       <static>true</static>
+      <pose>0 0 0 0 0 0</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
-            <plane>
-              <normal>0 0 1</normal>
-              <size>100 100</size>
-            </plane>
+            <box>
+              <size>30 30 0.01</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.6</mu>
+                <mu2>0.6</mu2>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>30 30 0.01</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.2 0.5 0.2 1</ambient>
+            <diffuse>0.3 0.6 0.3 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ==================== CIRCULAR ROAD (10m radius) ==================== -->
+    <model name="road">
+      <static>true</static>
+      <pose>0 0 0.005 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <cylinder>
+              <radius>10</radius>
+              <length>0.01</length>
+            </cylinder>
           </geometry>
           <surface>
             <friction>
@@ -47,23 +91,235 @@
         </collision>
         <visual name="visual">
           <geometry>
-            <plane>
-              <normal>0 0 1</normal>
-              <size>100 100</size>
-            </plane>
+            <cylinder>
+              <radius>10</radius>
+              <length>0.01</length>
+            </cylinder>
           </geometry>
           <material>
-            <ambient>0.2 0.2 0.2 1</ambient>
-            <diffuse>0.4 0.4 0.4 1</diffuse>
+            <ambient>0.15 0.15 0.15 1</ambient>
+            <diffuse>0.25 0.25 0.25 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
           </material>
         </visual>
       </link>
     </model>
 
-    <!-- Include the drift car -->
+    <!-- ==================== CENTER OBSTACLE (5m radius cylinder) ==================== -->
+    <model name="center_obstacle">
+      <static>true</static>
+      <pose>0 0 0.5 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <cylinder>
+              <radius>5</radius>
+              <length>0.5</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>5</radius>
+              <length>0.5</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.6 0.1 0.1 1</ambient>
+            <diffuse>0.8 0.2 0.2 1</diffuse>
+            <specular>0.3 0.3 0.3 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ==================== OUTER FENCE (annulus: inner 10m, outer 10.2m) ==================== -->
+    <!-- 36 segments forming a continuous wall, each rotated tangent to circle -->
+    <model name="fence_00"><static>true</static><pose>10.1 0 0.25 0 0 0</pose>
+      <link name="link"><collision name="c"><geometry><box><size>0.2 1.8 0.5</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>0.2 1.8 0.5</size></box></geometry>
+      <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual></link></model>
+
+    <model name="fence_01"><static>true</static><pose>9.95 1.76 0.25 0 0 0.1745</pose>
+      <link name="link"><collision name="c"><geometry><box><size>0.2 1.8 0.5</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>0.2 1.8 0.5</size></box></geometry>
+      <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual></link></model>
+
+    <model name="fence_02"><static>true</static><pose>9.49 3.46 0.25 0 0 0.3491</pose>
+      <link name="link"><collision name="c"><geometry><box><size>0.2 1.8 0.5</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>0.2 1.8 0.5</size></box></geometry>
+      <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual></link></model>
+
+    <model name="fence_03"><static>true</static><pose>8.75 5.05 0.25 0 0 0.5236</pose>
+      <link name="link"><collision name="c"><geometry><box><size>0.2 1.8 0.5</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>0.2 1.8 0.5</size></box></geometry>
+      <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual></link></model>
+
+    <model name="fence_04"><static>true</static><pose>7.74 6.50 0.25 0 0 0.6981</pose>
+      <link name="link"><collision name="c"><geometry><box><size>0.2 1.8 0.5</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>0.2 1.8 0.5</size></box></geometry>
+      <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual></link></model>
+
+    <model name="fence_05"><static>true</static><pose>6.50 7.74 0.25 0 0 0.8727</pose>
+      <link name="link"><collision name="c"><geometry><box><size>0.2 1.8 0.5</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>0.2 1.8 0.5</size></box></geometry>
+      <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual></link></model>
+
+    <model name="fence_06"><static>true</static><pose>5.05 8.75 0.25 0 0 1.0472</pose>
+      <link name="link"><collision name="c"><geometry><box><size>0.2 1.8 0.5</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>0.2 1.8 0.5</size></box></geometry>
+      <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual></link></model>
+
+    <model name="fence_07"><static>true</static><pose>3.46 9.49 0.25 0 0 1.2217</pose>
+      <link name="link"><collision name="c"><geometry><box><size>0.2 1.8 0.5</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>0.2 1.8 0.5</size></box></geometry>
+      <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual></link></model>
+
+    <model name="fence_08"><static>true</static><pose>1.76 9.95 0.25 0 0 1.3963</pose>
+      <link name="link"><collision name="c"><geometry><box><size>0.2 1.8 0.5</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>0.2 1.8 0.5</size></box></geometry>
+      <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual></link></model>
+
+    <model name="fence_09"><static>true</static><pose>0 10.1 0.25 0 0 1.5708</pose>
+      <link name="link"><collision name="c"><geometry><box><size>0.2 1.8 0.5</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>0.2 1.8 0.5</size></box></geometry>
+      <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual></link></model>
+
+    <model name="fence_10"><static>true</static><pose>-1.76 9.95 0.25 0 0 1.7453</pose>
+      <link name="link"><collision name="c"><geometry><box><size>0.2 1.8 0.5</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>0.2 1.8 0.5</size></box></geometry>
+      <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual></link></model>
+
+    <model name="fence_11"><static>true</static><pose>-3.46 9.49 0.25 0 0 1.9199</pose>
+      <link name="link"><collision name="c"><geometry><box><size>0.2 1.8 0.5</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>0.2 1.8 0.5</size></box></geometry>
+      <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual></link></model>
+
+    <model name="fence_12"><static>true</static><pose>-5.05 8.75 0.25 0 0 2.0944</pose>
+      <link name="link"><collision name="c"><geometry><box><size>0.2 1.8 0.5</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>0.2 1.8 0.5</size></box></geometry>
+      <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual></link></model>
+
+    <model name="fence_13"><static>true</static><pose>-6.50 7.74 0.25 0 0 2.2689</pose>
+      <link name="link"><collision name="c"><geometry><box><size>0.2 1.8 0.5</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>0.2 1.8 0.5</size></box></geometry>
+      <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual></link></model>
+
+    <model name="fence_14"><static>true</static><pose>-7.74 6.50 0.25 0 0 2.4435</pose>
+      <link name="link"><collision name="c"><geometry><box><size>0.2 1.8 0.5</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>0.2 1.8 0.5</size></box></geometry>
+      <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual></link></model>
+
+    <model name="fence_15"><static>true</static><pose>-8.75 5.05 0.25 0 0 2.6180</pose>
+      <link name="link"><collision name="c"><geometry><box><size>0.2 1.8 0.5</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>0.2 1.8 0.5</size></box></geometry>
+      <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual></link></model>
+
+    <model name="fence_16"><static>true</static><pose>-9.49 3.46 0.25 0 0 2.7925</pose>
+      <link name="link"><collision name="c"><geometry><box><size>0.2 1.8 0.5</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>0.2 1.8 0.5</size></box></geometry>
+      <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual></link></model>
+
+    <model name="fence_17"><static>true</static><pose>-9.95 1.76 0.25 0 0 2.9671</pose>
+      <link name="link"><collision name="c"><geometry><box><size>0.2 1.8 0.5</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>0.2 1.8 0.5</size></box></geometry>
+      <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual></link></model>
+
+    <model name="fence_18"><static>true</static><pose>-10.1 0 0.25 0 0 3.1416</pose>
+      <link name="link"><collision name="c"><geometry><box><size>0.2 1.8 0.5</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>0.2 1.8 0.5</size></box></geometry>
+      <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual></link></model>
+
+    <model name="fence_19"><static>true</static><pose>-9.95 -1.76 0.25 0 0 3.3161</pose>
+      <link name="link"><collision name="c"><geometry><box><size>0.2 1.8 0.5</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>0.2 1.8 0.5</size></box></geometry>
+      <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual></link></model>
+
+    <model name="fence_20"><static>true</static><pose>-9.49 -3.46 0.25 0 0 3.4907</pose>
+      <link name="link"><collision name="c"><geometry><box><size>0.2 1.8 0.5</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>0.2 1.8 0.5</size></box></geometry>
+      <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual></link></model>
+
+    <model name="fence_21"><static>true</static><pose>-8.75 -5.05 0.25 0 0 3.6652</pose>
+      <link name="link"><collision name="c"><geometry><box><size>0.2 1.8 0.5</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>0.2 1.8 0.5</size></box></geometry>
+      <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual></link></model>
+
+    <model name="fence_22"><static>true</static><pose>-7.74 -6.50 0.25 0 0 3.8397</pose>
+      <link name="link"><collision name="c"><geometry><box><size>0.2 1.8 0.5</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>0.2 1.8 0.5</size></box></geometry>
+      <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual></link></model>
+
+    <model name="fence_23"><static>true</static><pose>-6.50 -7.74 0.25 0 0 4.0143</pose>
+      <link name="link"><collision name="c"><geometry><box><size>0.2 1.8 0.5</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>0.2 1.8 0.5</size></box></geometry>
+      <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual></link></model>
+
+    <model name="fence_24"><static>true</static><pose>-5.05 -8.75 0.25 0 0 4.1888</pose>
+      <link name="link"><collision name="c"><geometry><box><size>0.2 1.8 0.5</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>0.2 1.8 0.5</size></box></geometry>
+      <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual></link></model>
+
+    <model name="fence_25"><static>true</static><pose>-3.46 -9.49 0.25 0 0 4.3633</pose>
+      <link name="link"><collision name="c"><geometry><box><size>0.2 1.8 0.5</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>0.2 1.8 0.5</size></box></geometry>
+      <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual></link></model>
+
+    <model name="fence_26"><static>true</static><pose>-1.76 -9.95 0.25 0 0 4.5379</pose>
+      <link name="link"><collision name="c"><geometry><box><size>0.2 1.8 0.5</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>0.2 1.8 0.5</size></box></geometry>
+      <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual></link></model>
+
+    <model name="fence_27"><static>true</static><pose>0 -10.1 0.25 0 0 4.7124</pose>
+      <link name="link"><collision name="c"><geometry><box><size>0.2 1.8 0.5</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>0.2 1.8 0.5</size></box></geometry>
+      <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual></link></model>
+
+    <model name="fence_28"><static>true</static><pose>1.76 -9.95 0.25 0 0 4.8869</pose>
+      <link name="link"><collision name="c"><geometry><box><size>0.2 1.8 0.5</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>0.2 1.8 0.5</size></box></geometry>
+      <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual></link></model>
+
+    <model name="fence_29"><static>true</static><pose>3.46 -9.49 0.25 0 0 5.0615</pose>
+      <link name="link"><collision name="c"><geometry><box><size>0.2 1.8 0.5</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>0.2 1.8 0.5</size></box></geometry>
+      <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual></link></model>
+
+    <model name="fence_30"><static>true</static><pose>5.05 -8.75 0.25 0 0 5.2360</pose>
+      <link name="link"><collision name="c"><geometry><box><size>0.2 1.8 0.5</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>0.2 1.8 0.5</size></box></geometry>
+      <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual></link></model>
+
+    <model name="fence_31"><static>true</static><pose>6.50 -7.74 0.25 0 0 5.4105</pose>
+      <link name="link"><collision name="c"><geometry><box><size>0.2 1.8 0.5</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>0.2 1.8 0.5</size></box></geometry>
+      <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual></link></model>
+
+    <model name="fence_32"><static>true</static><pose>7.74 -6.50 0.25 0 0 5.5851</pose>
+      <link name="link"><collision name="c"><geometry><box><size>0.2 1.8 0.5</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>0.2 1.8 0.5</size></box></geometry>
+      <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual></link></model>
+
+    <model name="fence_33"><static>true</static><pose>8.75 -5.05 0.25 0 0 5.7596</pose>
+      <link name="link"><collision name="c"><geometry><box><size>0.2 1.8 0.5</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>0.2 1.8 0.5</size></box></geometry>
+      <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual></link></model>
+
+    <model name="fence_34"><static>true</static><pose>9.49 -3.46 0.25 0 0 5.9341</pose>
+      <link name="link"><collision name="c"><geometry><box><size>0.2 1.8 0.5</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>0.2 1.8 0.5</size></box></geometry>
+      <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual></link></model>
+
+    <model name="fence_35"><static>true</static><pose>9.95 -1.76 0.25 0 0 6.1087</pose>
+      <link name="link"><collision name="c"><geometry><box><size>0.2 1.8 0.5</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>0.2 1.8 0.5</size></box></geometry>
+      <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual></link></model>
+
+    <!-- ==================== DRIFT CAR ==================== -->
     <include>
       <uri>model://drift_car</uri>
-      <pose>0 0 0 0 0 0</pose>
+      <pose>7.5 0 0.05 0 0 1.5708</pose>
     </include>
 
   </world>
