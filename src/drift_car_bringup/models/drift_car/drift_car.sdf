@@ -19,6 +19,7 @@
         </inertia>
       </inertial>
       
+      <!-- Main body (lower) -->
       <visual name="chassis_visual">
         <geometry>
           <box>
@@ -26,12 +27,153 @@
           </box>
         </geometry>
         <material>
-          <ambient>0.1 0.1 0.4 1</ambient>
-          <diffuse>0.2 0.2 0.6 1</diffuse>
+          <ambient>0.9 0.4 0.0 1</ambient>
+          <diffuse>1.0 0.5 0.0 1</diffuse>
+          <specular>0.5 0.5 0.5 1</specular>
+        </material>
+      </visual>
+
+      <!-- Cabin/roof -->
+      <visual name="cabin_visual">
+        <pose>0.02 0 0.035 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.12 0.13 0.03</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.1 0.1 0.1 1</ambient>
+          <diffuse>0.15 0.15 0.15 1</diffuse>
+          <specular>0.8 0.8 0.8 1</specular>
+        </material>
+      </visual>
+
+      <!-- Hood (front slope) -->
+      <visual name="hood_visual">
+        <pose>0.11 0 0.025 0 0.2 0</pose>
+        <geometry>
+          <box>
+            <size>0.08 0.14 0.015</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.9 0.4 0.0 1</ambient>
+          <diffuse>1.0 0.5 0.0 1</diffuse>
+          <specular>0.5 0.5 0.5 1</specular>
+        </material>
+      </visual>
+
+      <!-- Rear spoiler -->
+      <visual name="spoiler_visual">
+        <pose>-0.14 0 0.05 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.02 0.16 0.02</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.1 0.1 0.1 1</ambient>
+          <diffuse>0.2 0.2 0.2 1</diffuse>
           <specular>0.3 0.3 0.3 1</specular>
         </material>
       </visual>
-      
+
+      <!-- Spoiler supports -->
+      <visual name="spoiler_left_support">
+        <pose>-0.14 0.06 0.035 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.01 0.01 0.03</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.1 0.1 0.1 1</ambient>
+          <diffuse>0.2 0.2 0.2 1</diffuse>
+        </material>
+      </visual>
+      <visual name="spoiler_right_support">
+        <pose>-0.14 -0.06 0.035 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.01 0.01 0.03</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.1 0.1 0.1 1</ambient>
+          <diffuse>0.2 0.2 0.2 1</diffuse>
+        </material>
+      </visual>
+
+      <!-- Headlights -->
+      <visual name="headlight_left">
+        <pose>0.15 0.05 0.01 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.01 0.03 0.015</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>1 1 0.8 1</ambient>
+          <diffuse>1 1 0.9 1</diffuse>
+          <emissive>0.5 0.5 0.3 1</emissive>
+        </material>
+      </visual>
+      <visual name="headlight_right">
+        <pose>0.15 -0.05 0.01 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.01 0.03 0.015</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>1 1 0.8 1</ambient>
+          <diffuse>1 1 0.9 1</diffuse>
+          <emissive>0.5 0.5 0.3 1</emissive>
+        </material>
+      </visual>
+
+      <!-- Taillights -->
+      <visual name="taillight_left">
+        <pose>-0.15 0.05 0.01 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.01 0.03 0.015</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.8 0 0 1</ambient>
+          <diffuse>1 0 0 1</diffuse>
+          <emissive>0.5 0 0 1</emissive>
+        </material>
+      </visual>
+      <visual name="taillight_right">
+        <pose>-0.15 -0.05 0.01 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.01 0.03 0.015</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.8 0 0 1</ambient>
+          <diffuse>1 0 0 1</diffuse>
+          <emissive>0.5 0 0 1</emissive>
+        </material>
+      </visual>
+
+      <!-- Racing stripe (center) -->
+      <visual name="stripe_visual">
+        <pose>0 0 0.021 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.30 0.03 0.001</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+        </material>
+      </visual>
+
       <collision name="chassis_collision">
         <geometry>
           <box>
@@ -57,7 +199,8 @@
         </inertia>
       </inertial>
       
-      <visual name="visual">
+      <!-- Tire -->
+      <visual name="tire_visual">
         <geometry>
           <cylinder>
             <radius>0.033</radius>
@@ -65,8 +208,23 @@
           </cylinder>
         </geometry>
         <material>
-          <ambient>0.2 0.2 0.2 1</ambient>
-          <diffuse>0.3 0.3 0.3 1</diffuse>
+          <ambient>0.1 0.1 0.1 1</ambient>
+          <diffuse>0.15 0.15 0.15 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+        </material>
+      </visual>
+      <!-- Rim -->
+      <visual name="rim_visual">
+        <geometry>
+          <cylinder>
+            <radius>0.02</radius>
+            <length>0.021</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.9 0.9 0.9 1</diffuse>
+          <specular>1 1 1 1</specular>
         </material>
       </visual>
       
@@ -124,7 +282,8 @@
         </inertia>
       </inertial>
       
-      <visual name="visual">
+      <!-- Tire -->
+      <visual name="tire_visual">
         <geometry>
           <cylinder>
             <radius>0.033</radius>
@@ -132,8 +291,23 @@
           </cylinder>
         </geometry>
         <material>
-          <ambient>0.2 0.2 0.2 1</ambient>
-          <diffuse>0.3 0.3 0.3 1</diffuse>
+          <ambient>0.1 0.1 0.1 1</ambient>
+          <diffuse>0.15 0.15 0.15 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+        </material>
+      </visual>
+      <!-- Rim -->
+      <visual name="rim_visual">
+        <geometry>
+          <cylinder>
+            <radius>0.02</radius>
+            <length>0.021</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.9 0.9 0.9 1</diffuse>
+          <specular>1 1 1 1</specular>
         </material>
       </visual>
       
@@ -226,7 +400,8 @@
         </inertia>
       </inertial>
       
-      <visual name="visual">
+      <!-- Tire -->
+      <visual name="tire_visual">
         <geometry>
           <cylinder>
             <radius>0.033</radius>
@@ -234,8 +409,23 @@
           </cylinder>
         </geometry>
         <material>
-          <ambient>0.2 0.2 0.2 1</ambient>
-          <diffuse>0.3 0.3 0.3 1</diffuse>
+          <ambient>0.1 0.1 0.1 1</ambient>
+          <diffuse>0.15 0.15 0.15 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+        </material>
+      </visual>
+      <!-- Rim -->
+      <visual name="rim_visual">
+        <geometry>
+          <cylinder>
+            <radius>0.02</radius>
+            <length>0.021</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.9 0.9 0.9 1</diffuse>
+          <specular>1 1 1 1</specular>
         </material>
       </visual>
       
@@ -328,7 +518,8 @@
         </inertia>
       </inertial>
       
-      <visual name="visual">
+      <!-- Tire -->
+      <visual name="tire_visual">
         <geometry>
           <cylinder>
             <radius>0.033</radius>
@@ -336,8 +527,23 @@
           </cylinder>
         </geometry>
         <material>
-          <ambient>0.2 0.2 0.2 1</ambient>
-          <diffuse>0.3 0.3 0.3 1</diffuse>
+          <ambient>0.1 0.1 0.1 1</ambient>
+          <diffuse>0.15 0.15 0.15 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+        </material>
+      </visual>
+      <!-- Rim -->
+      <visual name="rim_visual">
+        <geometry>
+          <cylinder>
+            <radius>0.02</radius>
+            <length>0.021</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.9 0.9 0.9 1</diffuse>
+          <specular>1 1 1 1</specular>
         </material>
       </visual>
       

@@ -134,6 +134,193 @@
       </link>
     </model>
 
+    <!-- ==================== LANE MARKINGS ==================== -->
+    <!-- Inner edge line (white) at 5.3m radius - 24 segments -->
+    <model name="inner_line_00"><static>true</static><pose>5.3 0 0.012 0 0 0</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 1.4 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="inner_line_01"><static>true</static><pose>5.14 1.37 0.012 0 0 0.2618</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 1.4 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="inner_line_02"><static>true</static><pose>4.59 2.65 0.012 0 0 0.5236</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 1.4 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="inner_line_03"><static>true</static><pose>3.75 3.75 0.012 0 0 0.7854</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 1.4 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="inner_line_04"><static>true</static><pose>2.65 4.59 0.012 0 0 1.0472</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 1.4 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="inner_line_05"><static>true</static><pose>1.37 5.14 0.012 0 0 1.3090</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 1.4 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="inner_line_06"><static>true</static><pose>0 5.3 0.012 0 0 1.5708</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 1.4 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="inner_line_07"><static>true</static><pose>-1.37 5.14 0.012 0 0 1.8326</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 1.4 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="inner_line_08"><static>true</static><pose>-2.65 4.59 0.012 0 0 2.0944</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 1.4 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="inner_line_09"><static>true</static><pose>-3.75 3.75 0.012 0 0 2.3562</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 1.4 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="inner_line_10"><static>true</static><pose>-4.59 2.65 0.012 0 0 2.6180</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 1.4 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="inner_line_11"><static>true</static><pose>-5.14 1.37 0.012 0 0 2.8798</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 1.4 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="inner_line_12"><static>true</static><pose>-5.3 0 0.012 0 0 3.1416</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 1.4 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="inner_line_13"><static>true</static><pose>-5.14 -1.37 0.012 0 0 3.4034</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 1.4 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="inner_line_14"><static>true</static><pose>-4.59 -2.65 0.012 0 0 3.6652</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 1.4 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="inner_line_15"><static>true</static><pose>-3.75 -3.75 0.012 0 0 3.9270</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 1.4 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="inner_line_16"><static>true</static><pose>-2.65 -4.59 0.012 0 0 4.1888</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 1.4 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="inner_line_17"><static>true</static><pose>-1.37 -5.14 0.012 0 0 4.4506</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 1.4 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="inner_line_18"><static>true</static><pose>0 -5.3 0.012 0 0 4.7124</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 1.4 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="inner_line_19"><static>true</static><pose>1.37 -5.14 0.012 0 0 4.9742</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 1.4 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="inner_line_20"><static>true</static><pose>2.65 -4.59 0.012 0 0 5.2360</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 1.4 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="inner_line_21"><static>true</static><pose>3.75 -3.75 0.012 0 0 5.4978</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 1.4 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="inner_line_22"><static>true</static><pose>4.59 -2.65 0.012 0 0 5.7596</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 1.4 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="inner_line_23"><static>true</static><pose>5.14 -1.37 0.012 0 0 6.0214</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 1.4 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+
+    <!-- Center line (yellow dashed) at 7.5m radius - 12 dashes -->
+    <model name="center_line_00"><static>true</static><pose>7.5 0 0.012 0 0 0</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.1 1.2 0.001</size></box></geometry>
+      <material><ambient>1 0.9 0 1</ambient><diffuse>1 0.9 0 1</diffuse></material></visual></link></model>
+    <model name="center_line_01"><static>true</static><pose>6.50 3.75 0.012 0 0 0.5236</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.1 1.2 0.001</size></box></geometry>
+      <material><ambient>1 0.9 0 1</ambient><diffuse>1 0.9 0 1</diffuse></material></visual></link></model>
+    <model name="center_line_02"><static>true</static><pose>3.75 6.50 0.012 0 0 1.0472</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.1 1.2 0.001</size></box></geometry>
+      <material><ambient>1 0.9 0 1</ambient><diffuse>1 0.9 0 1</diffuse></material></visual></link></model>
+    <model name="center_line_03"><static>true</static><pose>0 7.5 0.012 0 0 1.5708</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.1 1.2 0.001</size></box></geometry>
+      <material><ambient>1 0.9 0 1</ambient><diffuse>1 0.9 0 1</diffuse></material></visual></link></model>
+    <model name="center_line_04"><static>true</static><pose>-3.75 6.50 0.012 0 0 2.0944</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.1 1.2 0.001</size></box></geometry>
+      <material><ambient>1 0.9 0 1</ambient><diffuse>1 0.9 0 1</diffuse></material></visual></link></model>
+    <model name="center_line_05"><static>true</static><pose>-6.50 3.75 0.012 0 0 2.6180</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.1 1.2 0.001</size></box></geometry>
+      <material><ambient>1 0.9 0 1</ambient><diffuse>1 0.9 0 1</diffuse></material></visual></link></model>
+    <model name="center_line_06"><static>true</static><pose>-7.5 0 0.012 0 0 3.1416</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.1 1.2 0.001</size></box></geometry>
+      <material><ambient>1 0.9 0 1</ambient><diffuse>1 0.9 0 1</diffuse></material></visual></link></model>
+    <model name="center_line_07"><static>true</static><pose>-6.50 -3.75 0.012 0 0 3.6652</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.1 1.2 0.001</size></box></geometry>
+      <material><ambient>1 0.9 0 1</ambient><diffuse>1 0.9 0 1</diffuse></material></visual></link></model>
+    <model name="center_line_08"><static>true</static><pose>-3.75 -6.50 0.012 0 0 4.1888</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.1 1.2 0.001</size></box></geometry>
+      <material><ambient>1 0.9 0 1</ambient><diffuse>1 0.9 0 1</diffuse></material></visual></link></model>
+    <model name="center_line_09"><static>true</static><pose>0 -7.5 0.012 0 0 4.7124</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.1 1.2 0.001</size></box></geometry>
+      <material><ambient>1 0.9 0 1</ambient><diffuse>1 0.9 0 1</diffuse></material></visual></link></model>
+    <model name="center_line_10"><static>true</static><pose>3.75 -6.50 0.012 0 0 5.2360</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.1 1.2 0.001</size></box></geometry>
+      <material><ambient>1 0.9 0 1</ambient><diffuse>1 0.9 0 1</diffuse></material></visual></link></model>
+    <model name="center_line_11"><static>true</static><pose>6.50 -3.75 0.012 0 0 5.7596</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.1 1.2 0.001</size></box></geometry>
+      <material><ambient>1 0.9 0 1</ambient><diffuse>1 0.9 0 1</diffuse></material></visual></link></model>
+
+    <!-- Outer edge line (white) at 9.7m radius - 24 segments -->
+    <model name="outer_line_00"><static>true</static><pose>9.7 0 0.012 0 0 0</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 2.6 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="outer_line_01"><static>true</static><pose>9.41 2.51 0.012 0 0 0.2618</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 2.6 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="outer_line_02"><static>true</static><pose>8.40 4.85 0.012 0 0 0.5236</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 2.6 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="outer_line_03"><static>true</static><pose>6.86 6.86 0.012 0 0 0.7854</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 2.6 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="outer_line_04"><static>true</static><pose>4.85 8.40 0.012 0 0 1.0472</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 2.6 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="outer_line_05"><static>true</static><pose>2.51 9.41 0.012 0 0 1.3090</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 2.6 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="outer_line_06"><static>true</static><pose>0 9.7 0.012 0 0 1.5708</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 2.6 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="outer_line_07"><static>true</static><pose>-2.51 9.41 0.012 0 0 1.8326</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 2.6 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="outer_line_08"><static>true</static><pose>-4.85 8.40 0.012 0 0 2.0944</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 2.6 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="outer_line_09"><static>true</static><pose>-6.86 6.86 0.012 0 0 2.3562</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 2.6 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="outer_line_10"><static>true</static><pose>-8.40 4.85 0.012 0 0 2.6180</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 2.6 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="outer_line_11"><static>true</static><pose>-9.41 2.51 0.012 0 0 2.8798</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 2.6 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="outer_line_12"><static>true</static><pose>-9.7 0 0.012 0 0 3.1416</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 2.6 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="outer_line_13"><static>true</static><pose>-9.41 -2.51 0.012 0 0 3.4034</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 2.6 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="outer_line_14"><static>true</static><pose>-8.40 -4.85 0.012 0 0 3.6652</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 2.6 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="outer_line_15"><static>true</static><pose>-6.86 -6.86 0.012 0 0 3.9270</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 2.6 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="outer_line_16"><static>true</static><pose>-4.85 -8.40 0.012 0 0 4.1888</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 2.6 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="outer_line_17"><static>true</static><pose>-2.51 -9.41 0.012 0 0 4.4506</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 2.6 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="outer_line_18"><static>true</static><pose>0 -9.7 0.012 0 0 4.7124</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 2.6 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="outer_line_19"><static>true</static><pose>2.51 -9.41 0.012 0 0 4.9742</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 2.6 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="outer_line_20"><static>true</static><pose>4.85 -8.40 0.012 0 0 5.2360</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 2.6 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="outer_line_21"><static>true</static><pose>6.86 -6.86 0.012 0 0 5.4978</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 2.6 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="outer_line_22"><static>true</static><pose>8.40 -4.85 0.012 0 0 5.7596</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 2.6 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+    <model name="outer_line_23"><static>true</static><pose>9.41 -2.51 0.012 0 0 6.0214</pose>
+      <link name="link"><visual name="v"><geometry><box><size>0.08 2.6 0.001</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual></link></model>
+
     <!-- ==================== OUTER FENCE (annulus: inner 10m, outer 10.2m) ==================== -->
     <!-- 36 segments forming a continuous wall, each rotated tangent to circle -->
     <model name="fence_00"><static>true</static><pose>10.1 0 0.25 0 0 0</pose>
