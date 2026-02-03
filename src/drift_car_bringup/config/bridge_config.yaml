@@ -29,3 +29,10 @@
   ros_type_name: rosgraph_msgs/msg/Clock
   gz_type_name: gz.msgs.Clock
   direction: GZ_TO_ROS
+
+# 5. IMU (Gazebo -> ROS)
+- ros_topic_name: /imu
+  gz_topic_name: /world/drift_track/model/drift_car/link/base_link/sensor/imu_sensor/imu
+  ros_type_name: sensor_msgs/msg/Imu
+  gz_type_name: gz.msgs.IMU
+  direction: GZ_TO_ROS
