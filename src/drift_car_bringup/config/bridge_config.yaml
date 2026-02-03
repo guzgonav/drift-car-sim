@@ -36,3 +36,17 @@
   ros_type_name: sensor_msgs/msg/Imu
   gz_type_name: gz.msgs.IMU
   direction: GZ_TO_ROS
+
+# 6. Camera (Gazebo -> ROS)
+- ros_topic_name: /camera/image
+  gz_topic_name: /world/drift_track/model/drift_car/link/base_link/sensor/camera/image
+  ros_type_name: sensor_msgs/msg/Image
+  gz_type_name: gz.msgs.Image
+  direction: GZ_TO_ROS
+
+# 7. Camera Info (Gazebo -> ROS)
+- ros_topic_name: /camera/camera_info
+  gz_topic_name: /world/drift_track/model/drift_car/link/base_link/sensor/camera/camera_info
+  ros_type_name: sensor_msgs/msg/CameraInfo
+  gz_type_name: gz.msgs.CameraInfo
+  direction: GZ_TO_ROS
