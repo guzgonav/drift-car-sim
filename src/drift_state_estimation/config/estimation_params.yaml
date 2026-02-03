@@ -1,0 +1,15 @@
+imu_processor:
+  ros__parameters:
+    filter_alpha: 0.1    # Low-pass filter coefficient (0-1)
+                         # Lower = more smoothing, higher = more responsive
+
+wheel_odometry:
+  ros__parameters:
+    wheel_radius: 0.033  # meters
+    wheelbase: 0.26      # meters (front to rear axle)
+    track_width: 0.18    # meters (left to right wheel)
+
+slip_estimator:
+  ros__parameters:
+    drift_threshold: 0.087      # rad (~5 degrees)
+    slip_angle_filter: 0.2      # Low-pass filter for slip angle
