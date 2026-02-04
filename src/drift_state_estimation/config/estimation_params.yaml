@@ -11,5 +11,9 @@ wheel_odometry:
 
 slip_estimator:
   ros__parameters:
-    drift_threshold: 0.087      # rad (~5 degrees)
-    slip_angle_filter: 0.2      # Low-pass filter for slip angle
+    drift_threshold: 0.087              # rad (~5 degrees) - when to set is_drifting flag
+    slip_angle_filter: 0.2              # Low-pass filter for slip angle (0-1)
+    estimation_method: 'ground_truth'   # 'ground_truth' or 'integration'
+                                        # Use 'ground_truth' for validation/tuning
+                                        # Use 'integration' for realistic estimation
+    reset_integration_threshold: 0.5    # Reset integration when ay & yaw_rate < this (m/s², rad/s)
