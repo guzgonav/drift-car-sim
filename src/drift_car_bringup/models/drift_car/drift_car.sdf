@@ -232,7 +232,7 @@
       </sensor>
 
       <!-- Camera Sensor -->
-      <sensor name="camera" type="camera">
+      <!-- <sensor name="camera" type="camera">
         <pose>0.12 0 0.04 0 0 0</pose>
         <always_on>true</always_on>
         <update_rate>30</update_rate>
@@ -254,7 +254,7 @@
             <stddev>0.007</stddev>
           </noise>
         </camera>
-      </sensor>
+      </sensor> -->
     </link>
 
     <!-- ==================== REAR LEFT WHEEL ==================== -->

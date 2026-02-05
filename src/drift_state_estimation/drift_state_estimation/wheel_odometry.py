@@ -51,7 +51,7 @@ class WheelOdometry(Node):
         self.get_logger().info(f'Wheel radius: {self.wheel_radius} m')
 
     def joint_states_callback(self, msg):
-        """Process joint states to extract wheel speeds."""
+        """Process joint states to extract wheel speeds and steering angles."""
         # Find wheel joint indices
         try:
             idx_fl = msg.name.index('front_left_wheel_joint')
@@ -62,11 +62,35 @@ class WheelOdometry(Node):
             self.get_logger().warn('Wheel joints not found in joint states', throttle_duration_sec=5.0)
             return
 
+        # Find steering joint indices
+        try:
+            idx_steer_fl = msg.name.index('front_left_steering_joint')
+            idx_steer_fr = msg.name.index('front_right_steering_joint')
+        except ValueError:
+            self.get_logger().warn('Steering joints not found in joint states', throttle_duration_sec=5.0)
+            idx_steer_fl = None
+            idx_steer_fr = None
+
         # Extract wheel angular velocities (rad/s)
         wheel_speed_fl = msg.velocity[idx_fl] if idx_fl < len(msg.velocity) else 0.0
         wheel_speed_fr = msg.velocity[idx_fr] if idx_fr < len(msg.velocity) else 0.0
         wheel_speed_rl = msg.velocity[idx_rl] if idx_rl < len(msg.velocity) else 0.0
         wheel_speed_rr = msg.velocity[idx_rr] if idx_rr < len(msg.velocity) else 0.0
+
+        # Extract steering angles (rad) from joint positions
+        if idx_steer_fl is not None and idx_steer_fl < len(msg.position):
+            steering_angle_left = msg.position[idx_steer_fl]
+        else:
+            steering_angle_left = 0.0
+
+        if idx_steer_fr is not None and idx_steer_fr < len(msg.position):
+            steering_angle_right = msg.position[idx_steer_fr]
+        else:
+            steering_angle_right = 0.0
+
+        # Calculate equivalent bicycle model steering angle (average of both)
+        # Note: In Ackermann, inner wheel turns more than outer
+        steering_angle = (steering_angle_left + steering_angle_right) / 2.0
 
         # Calculate average rear wheel speed
         average_rear = (wheel_speed_rl + wheel_speed_rr) / 2.0
@@ -79,6 +103,9 @@ class WheelOdometry(Node):
         wheel_speeds.rear_left = wheel_speed_rl
         wheel_speeds.rear_right = wheel_speed_rr
         wheel_speeds.average_rear = average_rear
+        wheel_speeds.steering_angle_left = steering_angle_left
+        wheel_speeds.steering_angle_right = steering_angle_right
+        wheel_speeds.steering_angle = steering_angle
 
         self.pub_wheel_speeds.publish(wheel_speeds)
 

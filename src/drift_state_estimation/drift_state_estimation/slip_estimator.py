@@ -30,12 +30,16 @@ class SlipEstimator(Node):
         self.declare_parameter('slip_angle_filter', 0.2)
         self.declare_parameter('estimation_method', 'integration')  # 'ground_truth' or 'integration'
         self.declare_parameter('reset_integration_threshold', 0.5)  # Reset when ay and yaw_rate both low
+        self.declare_parameter('wheelbase', 0.26)  # meters
+        self.declare_parameter('steering_state_threshold', 0.1)  # rad/s - yaw rate error threshold
 
         # Get parameters
         self.drift_threshold = self.get_parameter('drift_threshold').value
         self.slip_angle_filter = self.get_parameter('slip_angle_filter').value
         self.estimation_method = self.get_parameter('estimation_method').value
         self.reset_threshold = self.get_parameter('reset_integration_threshold').value
+        self.wheelbase = self.get_parameter('wheelbase').value
+        self.steering_state_threshold = self.get_parameter('steering_state_threshold').value
 
         # Publisher
         self.pub_drift_state = self.create_publisher(
@@ -218,10 +222,50 @@ class SlipEstimator(Node):
         # Determine if drifting
         is_drifting = abs(slip_angle) > self.drift_threshold
 
-        # Get steering angle from wheel speeds (if available)
-        # For now, we'll set it to 0 - can be improved later
-        steering_angle = 0.0
+        # Get steering angle from wheel speeds
+        steering_angle = wheels.steering_angle
 
+        # Calculate steering state (understeer/oversteer/neutral)
+        # Using the Kinematic Bicycle Model as the baseline reference.
+        
+        if abs(vx) > 0.3:  # Only calculate when moving to avoid noise
+            
+            # 1. Calculate Expected Yaw Rate (Ideal Model)
+            # Theoretical rate if tires had infinite grip: r = (v / L) * tan(delta)
+            yaw_rate_expected = (vx * math.tan(steering_angle)) / self.wheelbase
+            
+            # 2. Check for Counter-Steering (Crucial for Drifting)
+            # If the car rotates one way (yaw_rate) but wheels point the other (expected),
+            # the driver is counter-steering. This is a definitive state of Oversteer/Drift.
+            # We check if the signs are opposite.
+            if (yaw_rate * yaw_rate_expected) < 0 and abs(yaw_rate) > 0.2:
+                steering_state = DriftState.OVERSTEER
+                yaw_rate_error = abs(yaw_rate) - abs(yaw_rate_expected)
+
+            else:
+                # 3. Magnitude Comparison (Standard Turning)
+                # We compare absolute values to handle both Left (+) and Right (-) turns correctly.
+                # subtraction: How much faster is the car rotating compared to the steering input?
+                yaw_rate_error = abs(yaw_rate) - abs(yaw_rate_expected)
+
+                if yaw_rate_error > self.steering_state_threshold:
+                    # Actual rotation is significantly faster than steering implies
+                    steering_state = DriftState.OVERSTEER
+                    
+                elif yaw_rate_error < -self.steering_state_threshold:
+                    # Actual rotation is significantly slower than steering implies
+                    # (The car is "plowing" or refusing to turn)
+                    steering_state = DriftState.UNDERSTEER
+                    
+                else:
+                    # The difference is within the noise threshold
+                    steering_state = DriftState.NEUTRAL
+        else:
+            # Car is stopped or moving too slowly for dynamic analysis
+            yaw_rate_error = 0.0
+            yaw_rate_expected = 0.0
+            steering_state = DriftState.NEUTRAL
+            
         # Create and publish DriftState message
         drift_state = DriftState()
         drift_state.header.stamp = current_time.to_msg()
@@ -254,12 +298,21 @@ class SlipEstimator(Node):
         # Status
         drift_state.is_drifting = is_drifting
 
+        # Steering state
+        drift_state.steering_state = steering_state
+        drift_state.yaw_rate_expected = yaw_rate_expected
+        drift_state.yaw_rate_error = yaw_rate_error
+
         self.pub_drift_state.publish(drift_state)
 
         # Log when drift is detected (throttled)
         if is_drifting:
+            state_names = {DriftState.UNDERSTEER: 'UNDERSTEER',
+                          DriftState.NEUTRAL: 'NEUTRAL',
+                          DriftState.OVERSTEER: 'OVERSTEER'}
             self.get_logger().info(
-                f'DRIFTING! Slip angle: {math.degrees(slip_angle):.1f}° (vx={vx:.2f}, vy={vy:.2f})',
+                f'DRIFTING! β={math.degrees(slip_angle):.1f}° | {state_names[steering_state]} | '
+                f'r_err={math.degrees(yaw_rate_error):.1f}°/s',
                 throttle_duration_sec=1.0
             )
 

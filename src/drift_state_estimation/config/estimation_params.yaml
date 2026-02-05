@@ -17,3 +17,5 @@ slip_estimator:
                                         # Use 'ground_truth' for validation/tuning
                                         # Use 'integration' for realistic estimation
     reset_integration_threshold: 0.5    # Reset integration when ay & yaw_rate < this (m/s², rad/s)
+    wheelbase: 0.26                     # meters - for expected yaw rate calculation
+    steering_state_threshold: 0.1       # rad/s - yaw rate error threshold for under/oversteer detection
